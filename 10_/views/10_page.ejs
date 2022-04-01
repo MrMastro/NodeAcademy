@@ -1,0 +1,20 @@
+<h1>Hotel!</h1>
+<!-- 10 piani, 6 stanze-->
+<p>
+    <% if ( piano <= 10 ) { %>
+      Ti trovi al <%= piano %>° piano,
+      <% if(stanza < 7) { %>
+        Stanza n° <%= stanza %>
+        <% } else { %>
+          Ogni piano ha solo 6 stanze!
+          <% } %>
+    <% } else {  %>
+      Questo palazzo ha solo 10 piani!
+      <% } %>
+</p>
+<p><%=variabile%></p>
+
+<p> <% for(var i=0;i<numbers.length;i++) { %> 
+        Numero: <%=numbers[i]%>
+        <% }; %>
+</p>

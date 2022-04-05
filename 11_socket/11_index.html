@@ -20,14 +20,18 @@
     <form id="form" action="">
       <input id="input" autocomplete="off" /><button>Send</button>
     </form>
+    <!-- Import nel html del front end socket.io.js -->
     <script src="/socket.io/socket.io.js"></script>
     <script>
+        //dichiaro una socket con il metodo io() in socket.io.js
         var socket = io();
       
         var messages = document.getElementById('messages');
         var form = document.getElementById('form');
         var input = document.getElementById('input');
       
+        //aggiungo un event listener, il quale se riceve eventi submit su form deve:
+        //mandare l'evento alla socket (dall'altra parte ascolterà il server)
         form.addEventListener('submit', function(e) {
           e.preventDefault();
           if (input.value) {
@@ -35,12 +39,21 @@
             input.value = '';
           }
         });
+        
+        //Eventi ricevuti dal server:
+        //socket è la connessione tra client e server
+        //quando il server invierà eventi il client può catturarli tramite un listener su socket
+        //socket.on(<nome evento>,<funzione callback>)
+
+        //se alla socket arriva il chat message (che ha inviato il client), allora devo visualizzarlo sull html
         socket.on('chat message', function(msg) {
             var item = document.createElement('li');
             item.textContent = msg;
             messages.appendChild(item);
             window.scrollTo(0, document.body.scrollHeight);
         });
+
+        //se alla socket arriva il messaggio di disconnessione devo dire all'html che un utente si disconnette
         socket.on('disc',function(){
             var item = document.createElement('li');
             item.textContent = 'Un utente si è disconnesso';

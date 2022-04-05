@@ -1,15 +1,15 @@
-const express = require('express');
-const app = express();
+const express = require('express');//uso il framework exspress
+const app = express(); //parte back end
 const http = require('http');
 const server = http.createServer(app);
-const { Server } = require("socket.io");
-const io = new Server(server);
+const { Server } = require("socket.io");//richiedo la classe Server 
+const io = new Server(server); //creo un server back end
 
-app.get('/', (req, res) => {
+app.get('/', (req, res) => { //imposto la giestione chiamate get (Serverlet)
   res.sendFile(__dirname + '/11_index.html');
 });
 
-io.on('connection', (socket) => {
+io.on('connection', (socket) => { //boh
   console.log('a user connected');
   socket.on('chat message', (msg) => {
     console.log('message: ' + msg);
